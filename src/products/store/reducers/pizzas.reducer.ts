@@ -8,7 +8,50 @@ export interface PizzaState {
 }
 
 export const initialState: PizzaState = {
-  data: [],
+  data: [
+    {
+      name: "Seaside Surfin'",
+      toppings: [
+        {
+          id: 6,
+          name: "mushroom"
+        },
+        {
+          id: 7,
+          name: "olive"
+        },
+        {
+          id: 2,
+          name: "bacon"
+        },
+        {
+          id: 3,
+          name: "basil"
+        },
+        {
+          id: 1,
+          name: "anchovy"
+        },
+        {
+          id: 8,
+          name: "onion"
+        },
+        {
+          id: 11,
+          name: "sweetcorn"
+        },
+        {
+          id: 9,
+          name: "pepper"
+        },
+        {
+          id: 5,
+          name: "mozzarella"
+        }
+      ],
+      id: 2
+    }
+  ],
   loaded: false,
   loading: false
 };
@@ -19,6 +62,7 @@ export function reducer(
 ): PizzaState {
   switch (action.type) {
     case fromPizzas.LOAD_PIZZAS: {
+      console.log("case = ", action.type);
       return {
         ...state,
         loading: true
@@ -26,6 +70,7 @@ export function reducer(
     }
 
     case fromPizzas.LOAD_PIZZAS_SUCCESS: {
+      console.log("case = ", action.type);
       return {
         ...state,
         loading: false,
@@ -34,6 +79,7 @@ export function reducer(
     }
 
     case fromPizzas.LOAD_PIZZAS_FAIL: {
+      console.log("case = ", action.type);
       return {
         ...state,
         loading: false,
@@ -42,5 +88,11 @@ export function reducer(
     }
   }
 
+  console.log("returning the initial state...");
   return state;
 }
+
+// export some functions that we can compose with our selectors
+export const getPizzasLoading = (state: PizzaState) => state.loading;
+export const getPizzasLoaded = (state: PizzaState) => state.loaded;
+export const getPizzas = (state: PizzaState) => state.data;
