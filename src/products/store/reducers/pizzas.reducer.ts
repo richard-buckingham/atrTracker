@@ -2,13 +2,13 @@ import * as fromPizzas from "../actions/pizzas.action";
 import { Pizza } from "../../models/pizza.model";
 
 export interface PizzaState {
-  data: Pizza[];
+  entities: { [id: number]: Pizza };
   loaded: boolean;
   loading: boolean;
 }
 
 export const initialState: PizzaState = {
-  data: [],
+  entities: {},
   loaded: false,
   loading: false
 };
@@ -32,12 +32,26 @@ export function reducer(
     case fromPizzas.LOAD_PIZZAS_SUCCESS: {
       console.log("action.type = ", action.type);
       console.log("action.payload = ", action.payload);
-      const data = action.payload;
+
+      const pizzas = action.payload;
+
+      const entities = pizzas.reduce(
+        (entities: { [id: number]: Pizza }, pizza: Pizza) => {
+          return {
+            ...entities,
+            [pizza.id]: pizza
+          };
+        },
+        {
+          ...state.entities
+        }
+      );
+
       return {
         ...state,
         loading: false,
         loaded: true,
-        data: data
+        entities: entities
       };
     }
 
@@ -55,7 +69,18 @@ export function reducer(
   return state;
 }
 
+// called by the reducer above to reduce a pizza array to a dictionary object
+function reducePizzaArrayToEntity(
+  entities: { [id: number]: Pizza },
+  pizza: Pizza
+): { [id: number]: Pizza } {
+  return {
+    ...entities,
+    [pizza.id]: pizza
+  };
+}
+
 // export some functions that we can compose with our selectors
+export const getPizzasEntities = (state: PizzaState) => state.entities;
 export const getPizzasLoading = (state: PizzaState) => state.loading;
 export const getPizzasLoaded = (state: PizzaState) => state.loaded;
-export const getPizzas = (state: PizzaState) => state.data;
