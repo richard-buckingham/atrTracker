@@ -19,9 +19,15 @@ export class PizzasEffects {
   @Effect()
   loadPizzas$ = this.actions$.ofType(pizzaActions.LOAD_PIZZAS).pipe(
     switchMap(() => {
+      console.log(
+        "3 - loading - the pizza effect has caught the load pizzas action"
+      );
       return this.pizzasService.getPizzas().pipe(
         map(pizzas => {
-          console.log("in pizza.effect. pizzas = ", pizzas);
+          console.log(`5 - loading - in pizza.effect. pizzas =`, pizzas);
+          console.log(
+            `6 - loading - in pizza.effect. dispatching loadPizzaSuccess action, with pizza payload`
+          );
           return new pizzaActions.LoadPizzasSuccess(pizzas);
         }),
         catchError(error => {

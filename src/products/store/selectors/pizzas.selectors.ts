@@ -18,15 +18,18 @@ export const getPizzasEntities = createSelector(
   fromPizzas.getPizzasEntities
 );
 export const getAllPizzas = createSelector(getPizzasEntities, entities => {
-  console.log("in the getAllPizzas selector...");
-  console.log("entities = ", entities);
-  console.log("Object.keys(entities) = ", Object.keys(entities));
-  console.log(
+  //console.log("in the getAllPizzas selector...");
+  //console.log("entities = ", entities);
+  //console.log("Object.keys(entities) = ", Object.keys(entities));
+  /*   console.log(
     "Object.keys(entities).map(id => entities[parseInt(id, 10)]) = ",
     Object.keys(entities).map(id => entities[parseInt(id, 10)])
+  ); */
+  const pizzas: Pizza[] = Object.keys(entities).map(
+    id => entities[parseInt(id, 10)]
   );
-
-  return Object.keys(entities).map(id => entities[parseInt(id, 10)]);
+  console.log("7 - loading - in getAllPizzas selector, pizzas = ", pizzas);
+  return pizzas;
 });
 
 // get the selected pizza

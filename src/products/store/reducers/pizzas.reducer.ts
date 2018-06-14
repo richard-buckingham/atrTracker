@@ -17,12 +17,11 @@ export function reducer(
   state = initialState,
   action: fromPizzas.PizzasAction
 ): PizzaState {
+  //console.log("action.type = ", action.type);
+  //console.log("action.payload = ", action.payload);
   switch (action.type) {
     case fromPizzas.LOAD_PIZZAS: {
-      console.log("action.type = ", action.type);
-      console.log(
-        "we need to use a side effect to load the data, then dispatch the LOAD_PIZZAS_SUCCESS action"
-      );
+      console.log("2 - loading - pizza reducer is setting loading = true");
       return {
         ...state,
         loading: true
@@ -30,9 +29,6 @@ export function reducer(
     }
 
     case fromPizzas.LOAD_PIZZAS_SUCCESS: {
-      console.log("action.type = ", action.type);
-      console.log("action.payload = ", action.payload);
-
       const pizzas = action.payload;
 
       const entities = pizzas.reduce(
@@ -65,7 +61,7 @@ export function reducer(
     }
   }
 
-  console.log("returning the initial state...");
+  //console.log("returning the initial state...");
   return state;
 }
 

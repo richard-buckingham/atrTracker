@@ -33,9 +33,9 @@ export class CustomSerializer
   serialize(routerState: RouterStateSnapshot): RouterStateUrl {
     const { url } = routerState;
     const { queryParams } = routerState.root;
-    console.log("***** in CustomSerializer *****");
-    console.log("url = ", url);
-    console.log("queryParams = ", queryParams);
+    //console.log("***** in the router's CustomSerializer *****");
+    //console.log("url = ", url);
+    //console.log("queryParams = ", queryParams);
 
     let state: ActivatedRouteSnapshot = routerState.root;
     while (state.firstChild) {
