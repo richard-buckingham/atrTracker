@@ -6,23 +6,24 @@ import {
   OnChanges,
   SimpleChanges,
   ChangeDetectionStrategy,
-} from '@angular/core';
+  OnInit
+} from "@angular/core";
 import {
   FormControl,
   FormGroup,
   FormArray,
   FormBuilder,
-  Validators,
-} from '@angular/forms';
+  Validators
+} from "@angular/forms";
 
-import { map } from 'rxjs/operators';
+import { map } from "rxjs/operators";
 
-import { Pizza } from '../../models/pizza.model';
-import { Topping } from '../../models/topping.model';
+import { Pizza } from "../../models/pizza.model";
+import { Topping } from "../../models/topping.model";
 
 @Component({
-  selector: 'pizza-form',
-  styleUrls: ['pizza-form.component.scss'],
+  selector: "pizza-form",
+  styleUrls: ["pizza-form.component.scss"],
   template: `
     <div class="pizza-form">
       <form [formGroup]="form">
@@ -84,7 +85,7 @@ import { Topping } from '../../models/topping.model';
 
       </form>
     </div>
-  `,
+  `
 })
 export class PizzaFormComponent implements OnChanges {
   exists = false;
@@ -98,27 +99,31 @@ export class PizzaFormComponent implements OnChanges {
   @Output() remove = new EventEmitter<Pizza>();
 
   form = this.fb.group({
-    name: ['', Validators.required],
-    toppings: [[]],
+    name: ["", Validators.required],
+    toppings: [[]]
   });
 
   constructor(private fb: FormBuilder) {}
 
   get nameControl() {
-    return this.form.get('name') as FormControl;
+    return this.form.get("name") as FormControl;
   }
 
   get nameControlInvalid() {
-    return this.nameControl.hasError('required') && this.nameControl.touched;
+    return this.nameControl.hasError("required") && this.nameControl.touched;
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(
+      "************  in ngOnChanges. **********. changes = ",
+      changes
+    );
     if (this.pizza && this.pizza.id) {
       this.exists = true;
       this.form.patchValue(this.pizza);
     }
     this.form
-      .get('toppings')
+      .get("toppings")
       .valueChanges.pipe(
         map(toppings => toppings.map((topping: Topping) => topping.id))
       )
