@@ -27,8 +27,7 @@ import { Topping } from "../../models/topping.model";
   template: `
     <div class="pizza-form">
       <form [formGroup]="form">
-      
-        <label>
+         <label>
           <h4>Pizza name</h4>
           <input 
             type="text" 
@@ -85,6 +84,8 @@ import { Topping } from "../../models/topping.model";
 
       </form>
     </div>
+    <pre>pizza:{{pizza | json}}</pre>
+    <pre>toppings:{{toppings | json}}</pre>
   `
 })
 export class PizzaFormComponent implements OnChanges {
@@ -127,7 +128,10 @@ export class PizzaFormComponent implements OnChanges {
       .valueChanges.pipe(
         map(toppings => toppings.map((topping: Topping) => topping.id))
       )
-      .subscribe(value => this.selected.emit(value));
+      .subscribe(value => {
+        console.log("value = ", value);
+        return this.selected.emit(value);
+      });
   }
 
   createPizza(form: FormGroup) {

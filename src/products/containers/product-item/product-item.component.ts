@@ -43,7 +43,10 @@ export class ProductItemComponent implements OnInit {
     this.toppings$ = this.store.select<Topping[]>(fromStore.getAllToppings);
   }
 
-  onSelect(event: number[]) {}
+  onSelect(event: number[]) {
+    console.log("onSelect...", event);
+    // dispatch an action back to the store to save the selected toppings...
+  }
 
   onCreate(event: Pizza) {}
 

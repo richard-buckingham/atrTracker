@@ -17,6 +17,12 @@ export const getToppingsEntities = createSelector(
   getToppingsState,
   fromToppings.getToppingEntities
 );
+
+export const getSelectedToppings = createSelector(
+  getToppingsState,
+  fromToppings.getSelectedToppings
+);
+
 export const getAllToppings = createSelector(getToppingsEntities, entities => {
   //console.log("in the getAllPizzas selector...");
   //console.log("entities = ", entities);
