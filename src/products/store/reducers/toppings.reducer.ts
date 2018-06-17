@@ -21,7 +21,11 @@ export function reducer(
 ): ToppingsState {
   switch (action.type) {
     case fromToppings.VISUALISE_TOPPINGS: {
-      console.log(`2 - action = ${fromToppings.VISUALISE_TOPPINGS}`);
+      console.log(
+        `2 - action = ${fromToppings.VISUALISE_TOPPINGS}. selectedToppings = ${
+          action.payload
+        }.`
+      );
       const selectedToppings = action.payload;
       return {
         ...state,
