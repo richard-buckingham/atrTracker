@@ -37,4 +37,27 @@ export class PizzasEffects {
       );
     })
   );
+
+  @Effect()
+  createPizza$ = this.actions$.ofType(pizzaActions.CREATE_PIZZAS).pipe(
+    map((action: pizzaActions.CreatePizza) => {
+      console.log(
+        `Create Pizza::: In the createPizza effect. pizza =`,
+        action.payload
+      );
+      return action.payload;
+    }),
+    switchMap(pizza => {
+      return this.pizzasService.createPizza(pizza).pipe(
+        map(pizza => {
+          console.log(
+            `Create Pizza::: In the createPizza effect. Return CreatePizzaSuccess action. pizza =`,
+            pizza
+          );
+          return new pizzaActions.CreatePizzaSuccess(pizza);
+        }),
+        catchError(error => of(new pizzaActions.CreatePizzaFail(error)))
+      );
+    })
+  );
 }

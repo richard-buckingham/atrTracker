@@ -59,6 +59,34 @@ export function reducer(
         loaded: false
       };
     }
+
+    case fromPizzas.CREATE_PIZZAS_SUCCESS: {
+      const pizza = action.payload;
+
+      console.log(
+        `Create Pizza::: in Pizzas reducer. action.payload =`,
+        action.payload
+      );
+
+      console.log(
+        `Create Pizza::: in Pizzas reducer. entities before =`,
+        state.entities
+      );
+
+      const entities = {
+        ...state.entities,
+        [pizza.id]: pizza
+      };
+
+      console.log(
+        `Create Pizza::: in Pizzas reducer. entities after =`,
+        entities
+      );
+      return {
+        ...state,
+        entities
+      };
+    }
   }
 
   //console.log("returning the initial state...");

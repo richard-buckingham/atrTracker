@@ -58,7 +58,13 @@ export class ProductItemComponent implements OnInit {
     this.store.dispatch(new fromStore.VisualiseToppings(event));
   }
 
-  onCreate(event: Pizza) {}
+  onCreate(event: Pizza) {
+    console.log(
+      `Create Pizza::: dispatching the create pizza action. event =`,
+      event
+    );
+    this.store.dispatch(new fromStore.CreatePizza(event));
+  }
 
   onUpdate(event: Pizza) {}
 
