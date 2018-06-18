@@ -60,4 +60,27 @@ export class PizzasEffects {
       );
     })
   );
+
+  @Effect()
+  updatePizza$ = this.actions$.ofType(pizzaActions.UPDATE_PIZZA).pipe(
+    map((action: pizzaActions.UpdatePizza) => {
+      console.log(
+        `Update Pizza::: In the updatePizza effect. pizza =`,
+        action.payload
+      );
+      return action.payload;
+    }),
+    switchMap(pizza => {
+      return this.pizzasService.updatePizza(pizza).pipe(
+        map(pizza => {
+          console.log(
+            `Update Pizza::: In the updatePizza effect. Return UpdatePizzaSuccess action. pizza =`,
+            pizza
+          );
+          return new pizzaActions.UpdatePizzaSuccess(pizza);
+        }),
+        catchError(error => of(new pizzaActions.UpdatePizzaFail(error)))
+      );
+    })
+  );
 }

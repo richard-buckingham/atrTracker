@@ -60,6 +60,8 @@ export function reducer(
       };
     }
 
+    // same processing for UPDATE_PIZZA_SUCCESS and CREATE_PIZZAS_SUCCESS
+    case fromPizzas.UPDATE_PIZZA_SUCCESS:
     case fromPizzas.CREATE_PIZZAS_SUCCESS: {
       const pizza = action.payload;
 
