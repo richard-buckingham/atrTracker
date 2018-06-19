@@ -66,12 +66,12 @@ export function reducer(
       const pizza = action.payload;
 
       console.log(
-        `Create Pizza::: in Pizzas reducer. action.payload =`,
+        `Create or update Pizza::: in Pizzas reducer. action.payload =`,
         action.payload
       );
 
       console.log(
-        `Create Pizza::: in Pizzas reducer. entities before =`,
+        `Create or update Pizza::: in Pizzas reducer. entities before =`,
         state.entities
       );
 
@@ -81,9 +81,36 @@ export function reducer(
       };
 
       console.log(
-        `Create Pizza::: in Pizzas reducer. entities after =`,
+        `Create or update Pizza::: in Pizzas reducer. entities after =`,
         entities
       );
+      return {
+        ...state,
+        entities
+      };
+    }
+
+    case fromPizzas.REMOVE_PIZZA_SUCCESS: {
+      const pizza = action.payload;
+      
+      console.log(
+        `Remove Pizza::: in Pizzas reducer. entities before =`,
+        state.entities
+      );
+
+      // remove the pizza fro the store
+      const { [pizza.id]: removed, ...entities } = state.entities;
+
+      console.log(
+        `Remove Pizza::: in Pizzas reducer. removed pizza =`,
+        removed
+      );
+
+      console.log(
+        `Remove Pizza::: in Pizzas reducer. remaining entities =`,
+        entities
+      );
+
       return {
         ...state,
         entities

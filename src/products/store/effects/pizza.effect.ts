@@ -83,4 +83,27 @@ export class PizzasEffects {
       );
     })
   );
+
+  @Effect()
+  removePizza$ = this.actions$.ofType(pizzaActions.REMOVE_PIZZA).pipe(
+    map((action: pizzaActions.RemovePizza) => {
+      console.log(
+        `Remove Pizza::: In the removePizza effect. pizza =`,
+        action.payload
+      );
+      return action.payload;
+    }),
+    switchMap(pizza => {
+      return this.pizzasService.removePizza(pizza).pipe(
+        map(() => {
+          console.log(
+            `Remove Pizza::: In the removePizza effect. Return RemovePizzaSuccess action. pizza =`,
+            pizza
+          );
+          return new pizzaActions.RemovePizzaSuccess(pizza);
+        }),
+        catchError(error => of(new pizzaActions.RemovePizzaFail(error)))
+      );
+    })
+  );
 }
