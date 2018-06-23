@@ -30,7 +30,7 @@ export function reducer(
 
     case fromPizzas.LOAD_PIZZAS_SUCCESS: {
       const pizzas = action.payload;
-
+      console.log("? - loading - pizza reducer is setting loaded = true");
       const entities = pizzas.reduce(
         (entities: { [id: number]: Pizza }, pizza: Pizza) => {
           return {
@@ -92,7 +92,7 @@ export function reducer(
 
     case fromPizzas.REMOVE_PIZZA_SUCCESS: {
       const pizza = action.payload;
-      
+
       console.log(
         `Remove Pizza::: in Pizzas reducer. entities before =`,
         state.entities
